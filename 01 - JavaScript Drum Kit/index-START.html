@@ -59,6 +59,25 @@
 
 <script>
 
+  const removeTransition = (element, event) => {
+    if (!event.propertyName = "transform") return 
+    element.classList.remove('playing')
+  }
+
+  const handleKeyDown = (event) => {
+    const { keyCode } = event
+    const audio = document.querySelector(`audio[data-key="${keyCode}"]`)
+    const keyElement = document.querySelector(`.key[data-key="${keyCode}"]`)
+    if (!audio) return
+    keyElement.classList.add('playing')
+    audio.currentTime = 0; // rewind to start
+    audio.play();
+    keyElement.addEventListener('transitionend', (e) => {
+      removeTransition(keyElement, e)
+    })
+  }
+
+  window.addEventListener("keydown", (e) => handleKeyUp(e))
 </script>
 
 
